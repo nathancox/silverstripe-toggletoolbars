@@ -40,17 +40,12 @@
 			
 			// runs when the editor has finished rendering
 			ed.onPostRender.add(function() {
-				var hide = 1;
-				/*
-					@TODO:
-					get default value
-					get cookie value
-				*/
-				
-				if (hide == 0) {
-					thisPlugin.toggleToolbars('show');
-				} else {
+
+				var cookieVal = tinymce.util.Cookie.get('TinyMCEToggleToolbars');
+				if (cookieVal == null || cookieVal == 'hidden') {
 					thisPlugin.toggleToolbars('hide');
+				} else {
+					thisPlugin.toggleToolbars('show');
 				}
 				
 			});
@@ -85,41 +80,30 @@
 			}
 			
 			var initialHeight = this.toolbarContainer.clientHeight;
-			console.log(initialHeight);
 			
 			var i;
 			if (action == 'hide') {
 				for (i = 0; i < this.toolbars.length; i++) {
 					tinymce.DOM.hide(this.toolbars[i].id);
 				}
-				/*	
-				@TODO: 
-					resize iframe
-					set cookie
-				*/
 				this.ed.controlManager.setActive('toggletoolbars', 0);
 				this.ed.settings.toggleToolbarState = 'hidden';
 			} else if (action == 'show') {
 				for (i = 0; i < this.toolbars.length; i++) {
 					tinymce.DOM.show(this.toolbars[i].id);
 				}
-				/*	
-				@TODO: 
-					resize iframe
-					set cookie
-				*/
 				this.ed.controlManager.setActive('toggletoolbars', 1);
 				this.ed.settings.toggleToolbarState = 'visible';
 			}
 			
 			var finalHeight = this.toolbarContainer.clientHeight;
 			var heightDifference = initialHeight - finalHeight;
-			
 			var iframe = this.ed.getContentAreaContainer().firstChild;
 			// Resize iframe
 			tinymce.DOM.setStyle(iframe, 'height', iframe.clientHeight + heightDifference);
-			
 			this.ed.theme.deltaHeight += heightDifference; // For resize cookie
+			
+			tinymce.util.Cookie.set('TinyMCEToggleToolbars', this.ed.settings.toggleToolbarState);
 			
 			return this.ed.settings.toggleToolbarState;
 		},
