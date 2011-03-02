@@ -32,6 +32,9 @@ By default the plugin will hide/toggle all toolbars except the first one.  If yo
 	
 The line above will exclude toolbars one and two, so only toolbars three and higher (if they exist) will be hidden.
 
+The plugin will set a cookie whenever the the toolbars are toggled, so it will remember the user's preference.
+
+
 
 Known Issues
 ------------
