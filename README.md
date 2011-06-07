@@ -11,7 +11,7 @@ Requirements
 
 Documentation
 -------------
-[GitHub Wiki](https://github.com/nathancox/silverstripe-toggletoolbars)
+[GitHub Wiki](https://github.com/nathancox/silverstripe-toggletoolbars/wiki)
 
 Installation Instructions
 -------------------------
